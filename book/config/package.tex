@@ -1,0 +1,38 @@
+
+% --- Idioma y Codificación ---
+\usepackage[utf8]{inputenc} % Soporte para caracteres especiales (tildes, ñ)
+
+\usepackage[spanish,es-tabla]{babel} % Traducción de títulos (Índice, Capítulo, etc.)
+\usepackage{lmodern} % Carga la fuente Latin Modern
+\usepackage[T1]{fontenc} % Mejora el renderizado de caracteres
+\usepackage{enumitem}
+% --- Paquetes de Matemáticas (Fundamentales) ---
+\usepackage{amsmath}  % Mejoras para ecuaciones y fórmulas
+
+\usepackage{amsfonts} % Fuentes matemáticas (como el estilo blackboard bold para R, N, Z)
+\usepackage{amssymb}  % Símbolos matemáticos adicionales
+\usepackage{amsthm}   % Entornos para Teoremas, Lemas, Demostraciones, etc.
+\usepackage{import}
+\usepackage{subfiles}
+% --- Otros Paquetes Útiles ---
+\usepackage{graphicx}  % Para insertar imágenes y gráficas
+\usepackage{xcolor}    % Para usar colores en el texto
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,       % Cambia los cuadros feos por texto coloreado
+    linkcolor=primaryColor, % Color para el índice y referencias internas (\ref)
+    citecolor=accentColor,  % Color para las citas bibliográficas (\cite)
+    urlcolor=secondaryColor % Color para los enlaces web (\url)
+}
+\usepackage[many]{tcolorbox}
+% --- PAQUETE PARA PERSONALIZAR TÍTULOS ---
+\usepackage{titlesec}
+
+% Paquetes gráficos
+\usepackage[margin=2cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, calc, positioning, arrows.meta, fit, backgrounds,babel}
+\usepackage{float}
+
+\usepackage{listings} % Paquete indispensable para formatear código
+\usepackage{booktabs} % Para tablas con estilo profesional

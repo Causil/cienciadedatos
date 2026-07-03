@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/c:\\Users\\jacm0\\OneDrive\\Documentos\\cienciadedatos\\book\\main.aux": true,
+        "**/c:\\Users\\jacm0\\OneDrive\\Documentos\\cienciadedatos\\book\\main.log": true,
+        "**/c:\\Users\\jacm0\\OneDrive\\Documentos\\cienciadedatos\\book\\main.gz": true,
+        "**/c:\\Users\\jacm0\\OneDrive\\Documentos\\cienciadedatos\\book\\main.out": true,
+        "**/c:\\Users\\jacm0\\OneDrive\\Documentos\\cienciadedatos\\book\\part\\part_0\\main.aux": true,
+        "**/c:\\Users\\jacm0\\OneDrive\\Documentos\\cienciadedatos\\book\\part\\part_0\\main.log": true,
+        "**/c:\\Users\\jacm0\\OneDrive\\Documentos\\cienciadedatos\\book\\part\\part_0\\main.gz": true,
+        "**/c:\\Users\\jacm0\\OneDrive\\Documentos\\cienciadedatos\\book\\part\\part_0\\main.out": true
+    }
+}

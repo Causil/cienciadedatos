@@ -1,0 +1,63 @@
+\documentclass[12pt]{book}
+
+% ==========================================
+% PREÁMBULO: Configuración y Paquetes
+% ==========================================
+
+\usepackage{import}
+\import{config/}{package}
+
+% -- comando nuevos
+\import{config/}{new_comandos}
+% Ajustamos la lista para que el texto de la definición baje al siguiente renglón
+\setlist[description]{style=nextline, leftmargin=15pt}
+
+% -- Configuración de estilos 
+\import{config/}{styles}
+
+% --- Configuración de Entornos Matemáticos ---
+% (El contador [chapter] hace que se numeren según el capítulo: 1.1, 1.2, etc.)
+\import{config/}{reglas_teoria}
+% --- Información del Libro ---
+ % O puedes poner un año fijo: "2026"
+\title{}
+\author{}
+\date{}
+% ==========================================
+% INICIO DEL DOCUMENTO
+% ==========================================
+\begin{document}
+\input{portada}
+% --- Páginas Preliminares ---
+\frontmatter 
+% Las páginas aquí usarán números romanos (i, ii, iii...)
+
+\maketitle % Genera la portada con la info de arriba
+
+\tableofcontents % Genera el índice general
+\listoffigures % Descomenta si quieres un índice de imágenes
+\listoftables  % Descomenta si quieres un índice de tablas
+\chapter{Prefacio}
+Este libro busca ser un compendio de práctica y teoría para entender el aprendizaje automático.
+
+% --- Contenido Principal ---
+\mainmatter 
+% Las páginas aquí usarán números arábigos (1, 2, 3...)
+\part{Algoritmos y Modelos en Machine Learning}
+\import{part/part_0/}{main}
+\part{Conceptos Fundamentales}
+\import{part/part_1/}{main}
+\part{Estadística}
+\import{part/part_2/}{main}
+
+
+% --- Páginas Finales ---
+\backmatter 
+% Para apéndices, glosario y bibliografía
+
+% Ejemplo de bibliografía manual (Para libros más grandes se recomienda usar BibTeX o Biber)
+\bibliographystyle{plain} 
+
+% 2. Llama a tu archivo .bib (sin escribir la extensión .bib)
+\bibliography{referencias/libros}
+\end{document}

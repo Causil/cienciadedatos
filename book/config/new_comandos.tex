@@ -1,0 +1,46 @@
+% ---------------------------------------------------------
+% 2. SISTEMA DE NUMERACIÓN INTELIGENTE (NUEVO)
+% ---------------------------------------------------------
+\makeatletter % Permite usar comandos internos de LaTeX con arroba (@)
+
+% 1. Definimos el contador base dependiendo de la clase del documento
+\@ifundefined{c@chapter}{
+    \newcounter{numDef}[section] % Si es un artículo, reinicia en cada sección
+}{
+    \newcounter{numDef}[chapter] % Si es un libro, reinicia en cada capítulo
+}
+
+% 2. La lógica condicional: Imprime solo los niveles que existen (>0)
+\renewcommand{\thenumDef}{%
+    \@ifundefined{c@chapter}{%
+        % --- LÓGICA PARA ARTICLE ---
+        \ifnum\value{subsection}>0 \thesubsection.\arabic{numDef}%
+        \else \ifnum\value{section}>0 \thesection.\arabic{numDef}%
+        \else \arabic{numDef}\fi\fi
+    }{%
+        % --- LÓGICA PARA BOOK / REPORT ---
+        \ifnum\value{subsection}>0 \thesubsection.\arabic{numDef}%
+        \else \ifnum\value{section}>0 \thesection.\arabic{numDef}%
+        \else \ifnum\value{chapter}>0 \thechapter.\arabic{numDef}%
+        \else \arabic{numDef}\fi\fi\fi
+    }%
+}
+\makeatother % Cerramos el uso de comandos internos
+
+% 3. El comando para insertar la definición sigue igual
+\newcommand{\itemdef}[1]{%
+    \refstepcounter{numDef}%
+    \item[\textbf{\color{primaryColor}Definición \thenumDef \quad (#1):}]%
+}
+
+\newtcolorbox{DefinicionesBox}[1][Definiciones]{
+    colback=bgColor,            
+    colframe=primaryColor,      
+    coltitle=accentColor,       
+    fonttitle=\bfseries,        
+    title=#1,                   
+    arc=1mm,                    
+    boxrule=1.2pt,              
+    left=3mm, right=3mm, top=3mm, bottom=3mm,                 
+    drop fuzzy shadow=secondaryColor!30
+}

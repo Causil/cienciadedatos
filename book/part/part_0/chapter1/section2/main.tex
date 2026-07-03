@@ -1,0 +1,45 @@
+En el flujo de trabajo de \textit{Machine Learning} y Ciencia de Datos, los parámetros e hiperparámetros se explican, se definen y se gestionan en dos momentos y secciones completamente distintas del proyecto. 
+
+A continuación, se detalla exactamente dónde se encuentra cada uno de ellos tanto en la teoría (metodologías como CRISP-DM) como en la práctica (el código de programación).
+
+\subsection{1. En la teoría y metodología (CRISP-DM)}
+Si la documentación o el reporte técnico se organiza bajo el marco de la minería de datos, ambos conceptos viven en la \textbf{Fase 4: Modelado}, pero se explican en subsecciones separadas:
+
+\begin{description}
+    \item[Los Hiperparámetros se explican en el ``Diseño de la Prueba'' (Configuración):] Al inicio de la fase de modelado, se abre una sección para justificar la arquitectura. Aquí se explican qué valores fueron elegidos para el modelo \textbf{antes} de entrenar. 
+    
+    \textit{Ejemplo:} ``Se seleccionó un modelo de Red Neuronal con 1 capa oculta de 3 neuronas y una tasa de aprendizaje $\alpha = 0.01$ debido a restricciones de cómputo''.
+    
+    \item[Los Parámetros se explican en la ``Evaluación del Modelo'' (Resultados):] Una vez que el algoritmo termina de entrenar, se genera una sección de resultados donde se muestran las variables que el modelo descubrió por sí mismo a través de la optimización.
+    
+    \textit{Ejemplo:} ``El modelo lineal final obtuvo un sesgo $\beta_0 = 2.5$ y un coeficiente de peso $\beta_1 = 0.8$, lo que demuestra una relación positiva entre las variables''.
+\end{description}
+
+\subsection{2. En la práctica y el código (Script de Programación)}
+Al observar un código real (utilizando librerías como \textit{Scikit-Learn} o \textit{TensorFlow} en Python), la distinción de la ubicación de ambos conceptos es inmediata:
+
+\subsubsection*{A. Los Hiperparámetros están en la Instanciación (Definición)}
+Se especifican y se escriben en la línea de código donde \textbf{se crea el objeto del modelo}. Son los argumentos de configuración que el programador pasa explícitamente entre los paréntesis.
+
+\begin{lstlisting}[language=Python]
+# AQUÍ CONFIGURAS LOS HIPERPARÁMETROS (Manual)
+modelo = MLPClassifier(hidden_layer_sizes=(3,), learning_rate_init=0.01)
+\end{lstlisting}
+
+\subsubsection*{B. Los Parámetros nacen en el Entrenamiento (Función .fit())}
+No existen al principio del script. El algoritmo los calcula internamente en la línea de código donde el modelo procesa la matriz de datos. Tras ejecutar esa instrucción, el modelo almacena los parámetros aprendidos de forma interna.
+
+\begin{lstlisting}[language=Python]
+# El algoritmo procesa los datos y calcula los parámetros automáticamente
+modelo.fit(X_train, y_train) 
+
+# AQUÍ REVISAS LOS PARÁMETROS RESULTANTES (Automáticos)
+print(modelo.coefs_)  # Muestra los pesos calculados por la máquina
+\end{lstlisting}
+
+\subsection*{Resumen para el documento}
+Para estructurar esto de forma impecable en la sección de \textbf{Algoritmos y Modelos}:
+\begin{itemize}
+    \item Utiliza la sección de \textbf{Configuración/Arquitectura} para justificar los \textit{hiperparámetros} (las decisiones iniciales tomadas por el científico de datos).
+    \item Utiliza la sección de \textbf{Resultados/Ecuación Final} para exponer los \textit{parámetros} obtenidos (los valores que el algoritmo dedujo tras procesar la información).
+\end{itemize}

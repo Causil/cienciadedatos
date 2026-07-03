@@ -1,0 +1,73 @@
+% =========================================================
+% 1. DEFINICIÓN DE COLORES
+% =========================================================
+\definecolor{primaryColor}{HTML}{1A365D}   % Azul profundo institucional
+\definecolor{secondaryColor}{HTML}{2B6CB0} % Azul medio
+\definecolor{accentColor}{HTML}{D69E2E}    % Oro/Amarillo matemático
+\definecolor{bgColor}{HTML}{F7FAFC}        % Fondo ligeramente gris/azul
+
+% ---------------------------------------------------------
+% 2. DISEÑO DE LA PÁGINA DE "PARTE"
+% ---------------------------------------------------------
+\titleformat{\part}[display]
+  {\Huge\bfseries\centering\color{primaryColor}}
+  {\Large\color{accentColor}\MakeUppercase{\partname} \thepart}
+  {20pt}
+  {\Huge}
+
+% ---------------------------------------------------------
+% 3. DISEÑO DE CAPÍTULOS (\chapter)
+% ---------------------------------------------------------
+\titleformat{\chapter}[display]
+  {\Huge\bfseries\color{primaryColor}} % Formato del título principal
+  {\Large\color{accentColor}\MakeUppercase{\chaptername} \Huge\thechapter} % "CAPÍTULO 1"
+  {0.5pt} % Espacio vertical entre el número y el título
+  {\Huge} % Tamaño de la fuente del título
+
+% ---------------------------------------------------------
+% 4. DISEÑO DE SECCIONES (\section)
+% ---------------------------------------------------------
+% El formato 'hang' es el estándar (número a la izquierda, título a la derecha)
+\titleformat{\section}[hang]
+  {\Large\bfseries\color{primaryColor}} % Formato general de la sección
+  {\color{accentColor}\thesection} % El número (ej. 1.1) en oro
+  {0.5em} % Espacio horizontal entre el número y el texto
+  {} % Comandos previos al título (vacío en este caso)
+
+% ---------------------------------------------------------
+% 5. DISEÑO DE SUBSECCIONES (\subsection)
+% ---------------------------------------------------------
+\titleformat{\subsection}[hang]
+  {\large\bfseries\color{primaryColor}} % Ligeramente más pequeño que la sección
+  {\color{accentColor}\thesubsection} % El número (ej. 1.1.1) en oro
+  {0.5em}
+  {}
+
+  
+% Configuración estética para el código de Python
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    language=Python,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    % --- ESTA ES LA LÍNEA MÁGICA PARA EL ESPAÑOL ---
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+             {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+             {ñ}{{\~n}}1 {Ñ}{{\~N}}1
+}

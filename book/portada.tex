@@ -1,0 +1,60 @@
+\begin{titlepage}
+    % Desactivar los márgenes estándar para la portada usando TikZ
+    \begin{tikzpicture}[remember picture, overlay]
+        
+        % 1. Fondo de la portada
+        \fill[bgColor] (current page.south west) rectangle (current page.north east);
+        
+        % 2. Franja lateral o decorativa (Estilo minimalista/geométrico)
+        \fill[primaryColor] (current page.north west) rectangle ($(current page.south west) + (1.5cm, 0)$);
+        \fill[accentColor] ($(current page.north west) + (1.5cm, 0)$) rectangle ($(current page.south west) + (1.7cm, 0)$);
+
+        % 3. Bloque de Geometría Estocástica / Elemento Alusivo a Probabilidad
+        % Aquí dibujamos una abstracción de distribución normal y redes de probabilidad
+        \begin{scope}[shift={($(current page.south east) + (-6cm, 6cm)$)}, scale=1.2]
+            % Curva de Gauss de fondo en líneas punteadas
+            \draw[very thick, secondaryColor!40, smooth, domain=-3:3, samples=50] 
+                plot (\x, {3*exp(-\x*\x/2)});
+            \fill[secondaryColor!10, opacity=0.5, domain=-1.5:1.5, samples=50] 
+                (-1.5,0) -- plot (\x, {3*exp(-\x*\x/2)}) -- (1.5,0) -- cycle;
+            
+            % Espacio muestral / Nodos de procesos estocásticos (Caminata aleatoria / Grafo)
+            \node[circle, fill=primaryColor, inner sep=2pt] (A) at (-2,1) {};
+            \node[circle, fill=accentColor, inner sep=3pt] (B) at (-0.5,2.5) {};
+            \node[circle, fill=secondaryColor, inner sep=2.5pt] (C) at (1,1.8) {};
+            \node[circle, fill=primaryColor, inner sep=2pt] (D) at (2.5,0.5) {};
+            
+            \draw[thick, primaryColor!70, ->, >=stealth] (A) -- (B) node[midway, above left, scale=0.7] {$p_1$};
+            \draw[thick, primaryColor!70, ->, >=stealth] (B) -- (C) node[midway, above, scale=0.7] {$p_2$};
+            \draw[thick, primaryColor!70, ->, >=stealth] (C) -- (D) node[midway, right, scale=0.7] {$1-p_1$};
+            \draw[thick, dashed, secondaryColor!60] (A) to[out=45,in=135] (C);
+        \end{scope}
+
+        % 4. Textos de la Portada
+        % Institución / Sello editorial (Opcional)
+        \node[anchor=north west, text=primaryColor, font=\large\scshape\bfseries] 
+            at ($(current page.north west) + (3cm, -3cm)$) {Especialización en ciencia y analítica de datos};
+
+        % Título Principal
+        \node[anchor=west, text=primaryColor, font=\LARGE\bfseries, scale=1.3] (Title)
+            at ($(current page.north west) + (3cm, -7cm)$) {Sistemas de aprendizaje automático};
+            
+        % Subtítulo o enfoque
+        \node[anchor=west, text=secondaryColor, font=\Large\itshape, text width=12cm] (Sub)
+            at ($(Title.south west) + (0, -0.8cm)$) {Aprendizaje de datos históricos};
+
+        % Línea divisoria elegante
+        \draw[accentColor, ultra thick] ($(Sub.south west) + (0, -0.5cm)$) -- ($(Sub.south west) + (6cm, -0.5cm)$);
+
+        % Nombre del Autor
+        \node[anchor=west, text=black!80, font=\Large\scshape] 
+            at ($(current page.north west) + (3cm, -12cm)$) {Javier Andrés Causil Martínez };
+
+        % Pie de página (Año / Edición / Ciudad)
+        \node[anchor=south west, text=primaryColor!80, font=\small\sffamily] 
+            at ($(current page.south west) + (3.5cm, 2cm)$) {Primera Edición $\cdot$ 2026};
+
+    \end{tikzpicture}
+\end{titlepage}
+
+\clearpage
