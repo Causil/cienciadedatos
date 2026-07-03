@@ -1,0 +1,164 @@
+¿Cuál es la diferencia principal? A menudo se usan como sinónimos, pero en la práctica son dos conceptos distintos que trabajan juntos:
+
+\begin{itemize}
+    \item \textbf{El Algoritmo (El Motor / La Receta):} Es el procedimiento matemático o el conjunto de reglas que la computadora utiliza para analizar los datos, encontrar patrones y ``aprender'' de ellos. Ejemplos de algoritmos son el Descenso del Gradiente o la Retropropagación (\textit{Backpropagation}).
+    \item \textbf{El Modelo (El Resultado / El Plato Terminado):} Es la representación matemática final que resulta \textbf{después} de que el algoritmo ha procesado los datos de entrenamiento. Es esencialmente una función matemática a la que le entregas nuevos datos de entrada para obtener una predicción o clasificación de salida.
+\end{itemize}
+
+
+
+En resumen: \textbf{Algoritmo + Datos de Entrenamiento = Modelo de Machine Learning.}
+
+\begin{figure}[htbp]
+    \centering
+    \shorthandoff{>}
+    % Ajusta todo el contenido al ancho exacto de la línea de texto (\textwidth)
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        % Definición de estilos para las cajas (tamaños ligeramente reducidos)
+        base/.style = {rectangle, rounded corners, draw=black, minimum width=3cm, minimum height=1.5cm, text centered, font=\sffamily, align=center},
+        data/.style = {base, fill=blue!10, draw=blue!80!black, thick},
+        algo/.style = {base, fill=orange!10, draw=orange!80!black, thick},
+        model/.style = {base, fill=green!10, draw=green!80!black, thick},
+        param/.style = {base, fill=yellow!15, draw=yellow!80!black, dashed, minimum height=1cm},
+        arrow/.style = {thick, ->, >=stealth}
+        ]
+
+        % 1. Nodos Principales (distancia reducida a 0.8cm)
+        \node (data) [data] {\textbf{1. Datos} \\ (Training Data) \\ $X, y$};
+        
+        \node (algo) [algo, right=0.8cm of data] {\textbf{2. Algoritmo} \\ Optimización \\ (Ej: Gradiente)};
+        
+        \node (model) [model, right=0.8cm of algo] {\textbf{3. Modelo} \\ Función \\ $f(x)$};
+        
+        \node (pred) [base, fill=gray!10, right=0.8cm of model] {\textbf{4. Predicción} \\ Salida \\ $\hat{y}$};
+
+        % 2. Nodos Secundarios
+        \node (hyper) [param, below=0.8cm of algo] {\textbf{Hiperparámetros} \\ (Configuración)};
+        
+        \node (params) [param, below=0.8cm of model] {\textbf{Parámetros} \\ Pesos ($w$), Sesgos ($b$)};
+
+        % 3. Conexiones (Flechas)
+        \draw [arrow] (data) -- node[above, font=\footnotesize] {Alimenta} (algo);
+        \draw [arrow] (algo) -- node[above, font=\footnotesize] {Genera} (model);
+        \draw [arrow] (model) -- node[above, font=\footnotesize] {Datos} (pred);
+        
+        \draw [thick, dashed, ->, >=stealth] (hyper) -- (algo);
+        \draw [thick, dashed, <-, >=stealth] (params) -- (model);
+
+        % 4. Caja de fondo para agrupar la fase de aprendizaje
+        \begin{scope}[on background layer]
+            \node[draw=gray!50, dashed, rounded corners, fit=(algo)(model)(params)(hyper), inner sep=0.4cm, fill=gray!5] (box) {};
+            \node[above=0.2cm of box.north, font=\bfseries\sffamily, text=gray!70!black] {Fase de Aprendizaje};
+        \end{scope}
+
+    \end{tikzpicture}%
+    } % <-- Fin del resizebox
+    \caption{Visualización del flujo: Cómo los algoritmos utilizan los datos para ajustar parámetros y generar un modelo predictivo.}
+    \label{fig:ml_flow}
+\end{figure}
+
+%\vspace{1.4cm} % Añade un pequeño espacio vertical de separación con el gráfico
+\noindent \textbf{Explicación del flujo de Machine Learning:}
+Este diagrama ilustra la transición desde la información sin procesar hasta la toma de decisiones automatizada:
+
+\begin{description}
+    \item[1. El punto de partida:] El proceso arranca cuando los \textbf{Datos de Entrada} alimentan al \textbf{Algoritmo}. El algoritmo actúa como un motor de optimización que busca patrones matemáticos. Para que este motor funcione adecuadamente, el científico de datos establece reglas previas llamadas \textit{Hiperparámetros} (configuraciones manuales que guían el aprendizaje).
+    
+    \item[2. La consolidación (El Aprendizaje):] Al procesar los datos, el algoritmo ajusta sus valores internos. El resultado final de esta fase es el \textbf{Modelo}. Este modelo almacena los \textit{Parámetros Aprendidos} (como los pesos y sesgos), que son los valores exactos que el algoritmo descubrió por sí solo para resolver el problema.
+    
+    \item[3. La fase de inferencia:] Una vez que la etapa de aprendizaje concluye, el algoritmo pasa a un segundo plano. Ahora es el \textbf{Modelo}, con sus parámetros ya calibrados, el que recibe datos nuevos que nunca antes ha visto para aplicar su función matemática y generar una \textbf{Predicción} final.
+\end{description}
+
+\subsubsection{Ejemplos de Algoritmos y sus Modelos}
+
+A continuación, se presentan algunos de los enfoques más clásicos en Machine Learning, cómo funciona su algoritmo y la estructura matemática del modelo resultante.
+
+\begin{enumerate}
+    \item {\bf Regresión Lineal (Linear Regression):} 
+    Se utiliza para predecir un valor numérico continuo (por ejemplo, el precio de una casa basado en su tamaño).
+
+    \begin{itemize}
+        \item \textbf{El Algoritmo:} Usualmente se emplea el método de \textit{Mínimos Cuadrados Ordinarios (OLS)} o el \textit{Descenso del Gradiente} para encontrar los coeficientes que minimicen el error cuadrático entre la predicción y los datos reales.
+        \item \textbf{El Modelo:} Una vez entrenado, el modelo es una ecuación lineal (una línea recta o un hiperplano) donde se han calculado los pesos ideales ($\beta$).
+    \end{itemize}
+    \begin{equation}
+        y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_n x_n
+    \end{equation}
+    \textit{(Donde $y$ es la predicción, $x_i$ son las características de entrada, $\beta_0$ es el sesgo y $\beta_i$ son los pesos aprendidos).}
+    \item {\bf Regresión Logística (Logistic Regression)}
+A pesar de su nombre, se utiliza para \textbf{clasificación} binaria (por ejemplo, decidir si un correo es ``Spam'' o ``No Spam'').
+
+\begin{itemize}
+    \item \textbf{El Algoritmo:} Utiliza la \textit{Maximización de la Verosimilitud} (Maximum Likelihood Estimation) para ajustar los pesos del modelo a los datos de entrenamiento.
+    \item \textbf{El Modelo:} Toma una ecuación lineal y la pasa por una función Sigmoide para comprimir el resultado y convertirlo en una probabilidad matemática entre 0 y 1.
+\end{itemize}
+\begin{equation}
+    P(y=1|x) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x)}}
+\end{equation}
+\textit{(Donde $P(y=1|x)$ es la probabilidad de que la entrada $x$ pertenezca a la clase 1).}
+
+\item {\bf Máquinas de Vectores de Soporte (SVM)}
+Se utiliza principalmente para clasificación compleja. Busca trazar la mejor ``frontera'' posible entre diferentes tipos de datos.
+
+\begin{itemize}
+    \item \textbf{El Algoritmo:} Es un solucionador de optimización matemática que busca maximizar el ``margen'' (la distancia) entre los puntos de datos más cercanos de diferentes clases (los vectores de soporte). El objetivo del algoritmo es minimizar $\frac{1}{2} ||w||^2$.
+    \item \textbf{El Modelo:} El resultado es la ecuación del \textbf{hiperplano óptimo} que separa las clases en el espacio multidimensional.
+\end{itemize}
+\begin{equation}
+    w^T x + b = 0
+\end{equation}
+\textit{(Donde $w$ es el vector de pesos que determina la orientación del hiperplano, $x$ es la entrada y $b$ es el sesgo).}
+
+\item {\bf Redes Neuronales Artificiales (ANN)}
+Es la base del \textit{Deep Learning}. Modela relaciones altamente complejas y no lineales.
+
+\begin{itemize}
+    \item \textbf{El Algoritmo:} Utiliza \textit{Backpropagation} (Propagación hacia atrás) junto con un optimizador para ajustar millones de pesos en la red calculando derivadas parciales (gradientes) de la función de pérdida.
+    \item \textbf{El Modelo:} Es una red de funciones matemáticas interconectadas. Para una sola ``neurona'' dentro de la red, el modelo matemático calcula una suma ponderada y la pasa por una función de activación no lineal $\sigma$ (como ReLU o Sigmoide).
+\end{itemize}
+\begin{equation}
+    a = \sigma\left(\sum_{i=1}^{n} w_i x_i + b\right)
+\end{equation}
+\textit{(Donde $a$ es la salida o activación de la neurona, $w_i$ son los pesos, $x_i$ son las entradas y $b$ es el sesgo).}
+
+\item {\bf Clasificador Naïve Bayes (Naïve Bayes)}
+Este es un modelo generativo fundamentado en el Teorema de Bayes, utilizado ampliamente en clasificación de textos y análisis de sentimientos. Se le llama ``ingenuo'' (\textit{naïve}) porque asume independencia condicional estricta entre las características dado la clase.
+
+\begin{itemize}
+    \item \textbf{El Algoritmo:} Utiliza la estimación de Máxima Probabilidad a Posteriori (MAP) contando frecuencias en los datos de entrenamiento para calcular empíricamente la probabilidad a priori de cada clase $P(y)$ y las probabilidades condicionales de cada característica $P(x_i | y)$.
+    \item \textbf{El Modelo:} Es una regla de decisión matemática. Para una nueva observación con características $x = (x_1, \dots, x_n)$, el modelo asigna la clase $\hat{y}$ que maximiza la probabilidad conjunta (gracias al supuesto de independencia):
+\end{itemize}
+\begin{equation}
+    \hat{y} = \arg \max_{y} P(y) \prod_{i=1}^{n} P(x_i \mid y)
+\end{equation}
+
+\item  {\bf Agrupamiento K-Medias (K-Means Clustering)}
+Es el algoritmo por excelencia para el aprendizaje no supervisado. Su objetivo es particionar un conjunto de $n$ observaciones en $k$ grupos (clústeres), donde cada observación pertenece al grupo cuyo valor medio sea más cercano.
+
+\begin{itemize}
+    \item \textbf{El Algoritmo:} Típicamente emplea el \textit{Algoritmo de Lloyd} (un enfoque heurístico iterativo de Expectativa-Maximización). En cada iteración, reasigna los puntos al centroide más cercano y luego recalcula la posición del centroide como el centro de masa geométrico del grupo. El objetivo del algoritmo es minimizar la varianza intra-clúster (la suma de los errores cuadráticos):
+    \begin{equation}
+        J = \sum_{j=1}^{k} \sum_{x_i \in C_j} || x_i - \mu_j ||^2
+    \end{equation}
+    \item \textbf{El Modelo:} Una vez que converge, el modelo no es una ecuación continua, sino un conjunto discreto de $k$ vectores en $\mathbb{R}^d$ que representan los centroides finales $\{ \mu_1, \mu_2, \dots, \mu_k \}$. Para predecir a qué grupo pertenece un nuevo punto $x$, el modelo evalúa la métrica de distancia:
+\end{itemize}
+\begin{equation}
+    \text{Clúster}(x) = \arg \min_{j \in \{1, \dots, k\}} || x - \mu_j ||^2
+\end{equation}
+
+\item {\bf Análisis de Componentes Principales (PCA)}
+Aunque a menudo se clasifica como una técnica de preprocesamiento, es un modelo matemático de aprendizaje no supervisado utilizado para la reducción de dimensionalidad, preservando la mayor cantidad de varianza posible.
+
+\begin{itemize}
+    \item \textbf{El Algoritmo:} Implica álgebra lineal pura. Toma la matriz de datos centrados $X$, calcula su matriz de covarianza $\Sigma = \frac{1}{n-1} X^T X$ y luego realiza una descomposición espectral para encontrar sus autovalores ($\lambda$) y autovectores ($v$). Se seleccionan los $k$ autovectores correspondientes a los $k$ autovalores más grandes.
+    \begin{equation}
+        \Sigma v = \lambda v
+    \end{equation}
+    \item \textbf{El Modelo:} Es una matriz de proyección ortogonal $W_{d \times k}$ (cuyas columnas son los $k$ autovectores principales). Al recibir un nuevo dato original $x$ (de dimensión $d$), el modelo lo transforma a un nuevo espacio latente $z$ (de dimensión $k$):
+\end{itemize}
+\begin{equation}
+    z = x W
+\end{equation}
+
+\end{enumerate}

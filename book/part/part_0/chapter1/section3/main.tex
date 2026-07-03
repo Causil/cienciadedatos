@@ -1,0 +1,100 @@
+Encontrar los hiperparámetros correctos (proceso conocido como \textit{Hyperparameter Tuning}) suele ser uno de los mayores desafíos en la Ciencia de Datos. Al no existir una fórmula matemática directa que dé la respuesta exacta desde el inicio, es un proceso empírico de prueba y error, pero que debe ejecutarse de manera estructurada.
+
+A continuación, se presentan las cuatro técnicas principales utilizadas en la industria para automatizar y optimizar esta búsqueda.
+
+\subsection{1. Búsqueda en Cuadrícula (Grid Search)}
+Es la técnica más tradicional y exhaustiva, conocida informalmente como ``fuerza bruta''.
+
+\begin{itemize}
+    \item \textbf{Cómo funciona:} Se define un conjunto discreto de valores para cada hiperparámetro. El algoritmo crea una cuadrícula y prueba \textbf{absolutamente todas} las combinaciones posibles, entrenando un modelo para cada una y evaluando su rendimiento.
+    \item \textbf{Cuándo usarla:} Cuando se tienen muy pocos hiperparámetros (2 o 3) y el modelo es de entrenamiento rápido.
+    \item \textbf{Ventaja:} Garantiza encontrar la mejor combinación exacta dentro de la lista de valores proporcionada.
+    \item \textbf{Desventaja:} Es computacionalmente muy costosa. Si se tienen 4 hiperparámetros y se prueban 5 opciones para cada uno, la computadora tendrá que entrenar $5^4 = 625$ modelos distintos.
+\end{itemize}
+
+\subsection{2. Búsqueda Aleatoria (Random Search)}
+Es la alternativa inteligente y práctica a la lentitud del \textit{Grid Search}.
+
+\begin{itemize}
+    \item \textbf{Cómo funciona:} En lugar de probar todas las combinaciones metódicamente, se define un rango o distribución estadística para cada hiperparámetro. El algoritmo elige valores al azar dentro de esos rangos durante un número de intentos limitado definido por el usuario.
+    \item \textbf{Cuándo usarla:} Es el estándar de oro inicial para la mayoría de los proyectos de Machine Learning en la actualidad.
+    \item \textbf{Ventaja:} Suele encontrar configuraciones iguales o mejores que \textit{Grid Search} en una fracción del tiempo, ya que no pierde iteraciones probando combinaciones inútiles.
+    \item \textbf{Desventaja:} Al ser un proceso estocástico (basado en el azar), no garantiza encontrar el óptimo global absoluto.
+\end{itemize}
+
+\subsection{3. Optimización Bayesiana}
+Es el estándar moderno y la técnica más sofisticada, especialmente utilizada en \textit{Deep Learning} y modelos computacionalmente pesados.
+
+\begin{itemize}
+    \item \textbf{Cómo funciona:} Utiliza principios de probabilidad condicional (Teorema de Bayes) para ``aprender'' de las combinaciones anteriores. Construye un modelo probabilístico interno para estimar qué zonas del espacio de hiperparámetros tienen más probabilidades de éxito, guiando las siguientes iteraciones hacia allá.
+    \item \textbf{Cuándo usarla:} Cuando entrenar el modelo toma horas o días, y no es viable desperdiciar tiempo en combinaciones ineficientes.
+    \item \textbf{Ventaja:} Es extremadamente eficiente. Encuentra los mejores resultados entrenando la menor cantidad de modelos posibles.
+    \item \textbf{Desventaja:} Su formulación matemática es compleja, aunque en la práctica se soluciona utilizando librerías especializadas en Python como Optuna o Hyperopt.
+\end{itemize}
+
+\subsection{4. Algoritmos Evolutivos (Algoritmos Genéticos)}
+Es un enfoque heurístico inspirado en la teoría de la evolución biológica.
+
+\begin{itemize}
+    \item \textbf{Cómo funciona:} Se crea una ``población'' inicial de hiperparámetros aleatorios. Tras entrenar y evaluar los modelos, las configuraciones con mejores métricas ``sobreviven''. Estas configuraciones ganadoras se combinan entre sí (cruce) y sufren pequeñas variaciones (mutación) para generar una nueva generación de pruebas.
+    \item \textbf{Cuándo usarla:} En arquitecturas de redes neuronales altamente complejas o espacios de búsqueda gigantescos.
+    \item \textbf{Ventaja:} Excelente para escapar de óptimos locales (cuando el modelo se estanca creyendo haber encontrado la mejor solución, pero existe una mejor en otra región del espacio).
+    \item \textbf{Desventaja:} Requiere una gran potencia de cálculo, ya que se deben procesar múltiples generaciones completas antes de converger.
+\end{itemize}
+
+\subsection{5. Hyperband (y Successive Halving)}
+Esta es una de las técnicas modernas más populares para ahorrar tiempo y recursos de computación, especialmente en la nube y en sistemas de \textit{AutoML} (Machine Learning Automatizado).
+
+\begin{itemize}
+    \item \textbf{La idea:} Combina la Búsqueda Aleatoria con un mecanismo de ``supervivencia del más apto'' basado en presupuestos (por ejemplo, tiempo máximo o número de iteraciones).
+    \item \textbf{Cómo funciona:} Inicia entrenando muchas configuraciones al azar, pero solo por un periodo muy corto. Evalúa cuáles van por buen camino y detiene prematuramente (\textit{Early Stopping}) a los modelos con bajo rendimiento. Los recursos computacionales liberados se reasignan exclusivamente a los modelos prometedores para que continúen su entrenamiento.
+\end{itemize}
+
+\subsection{6. Optimización Basada en Gradientes (Gradient-based Optimization)}
+Es un enfoque puramente matemático y altamente especializado.
+
+\begin{itemize}
+    \item \textbf{La idea:} Si utilizamos el Descenso del Gradiente para encontrar los parámetros internos de una red neuronal, se puede usar un principio similar para encontrar los hiperparámetros.
+    \item \textbf{Cómo funciona:} Calcula ``hipergradientes'' que indican al algoritmo en qué dirección matemática debe mover los hiperparámetros para minimizar el error.
+    \item \textbf{Limitación:} Solo es aplicable para hiperparámetros que representan variables continuas (como la tasa de aprendizaje); no funciona para decisiones discretas (como el número de capas).
+\end{itemize}
+
+\subsection{7. Inteligencia de Enjambre (Swarm Intelligence - ej. PSO)}
+Es otra rama de la computación evolutiva, estrechamente relacionada con los Algoritmos Genéticos.
+
+\begin{itemize}
+    \item \textbf{La idea:} En lugar de imitar la evolución genética, modela el comportamiento social de una bandada de pájaros o un banco de peces buscando alimento (\textit{Particle Swarm Optimization}).
+    \item \textbf{Cómo funciona:} Cada ``pájaro'' (una configuración de hiperparámetros) explora el espacio de búsqueda. Si uno encuentra una región prometedora, informa al resto del enjambre, y todos ajustan su trayectoria matemáticamente para explorar cerca de ese óptimo local.
+\end{itemize}
+
+\subsection{8. Búsqueda Manual (El Toque Experto)}
+En el entorno académico, a menudo se le conoce coloquialmente como \textit{Grad Student Descent} (Descenso del Estudiante de Posgrado).
+
+\begin{itemize}
+    \item \textbf{Cómo funciona:} Un científico de datos con profunda experiencia en el dominio del problema intuye por dónde empezar a probar configuraciones, ajustando los valores a mano. Aunque carece de automatización, la intuición humana guiada por la experiencia previa a menudo converge en un buen modelo más rápido que una búsqueda ciega.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% Tabla comparativa extendida
+\begin{table}[htbp]
+    \centering
+    \caption{Comparativa Extendida de Técnicas de Optimización de Hiperparámetros}
+    \vspace{0.2cm}
+    \renewcommand{\arraystretch}{1.5}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|p{4cm}|p{3.5cm}|p{4.5cm}|}
+        \hline
+        \textbf{Técnica} & \textbf{Eficiencia Computacional} & \textbf{Calidad del Resultado} & \textbf{Característica Principal} \\ \hline
+        \textbf{Grid Search} & Muy Baja (Lenta) & Alta & Exhaustiva, fuerza bruta. \\ \hline
+        \textbf{Random Search} & Media a Alta & Muy Buena & Estocástica, rápida implementación. \\ \hline
+        \textbf{Optimiz. Bayesiana} & Muy Alta (Rápida) & Excelente & Aprende probabilísticamente del pasado. \\ \hline
+        \textbf{Algoritmos Genéticos} & Baja a Media & Excelente & Evoluciona generaciones, mutaciones. \\ \hline
+        \textbf{Hyperband} & Muy Alta (Ahorra recursos) & Muy Buena a Excelente & \textit{Early stopping} de modelos malos. \\ \hline
+        \textbf{Basada en Gradientes}& Alta (Solo continuos) & Excelente & Uso de derivadas (hipergradientes). \\ \hline
+        \textbf{Intel. de Enjambre} & Media & Excelente & Optimización colaborativa (PSO). \\ \hline
+        \textbf{Búsqueda Manual} & Variable & Variable & Basada en intuición y experiencia. \\ \hline
+    \end{tabular}%
+    }
+    \label{tab:tuning_techniques_extended}
+\end{table}

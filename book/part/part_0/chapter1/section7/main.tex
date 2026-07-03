@@ -1,0 +1,240 @@
+Esta sección esta desarrollada basado en \cite{sistemaAprendizajeAutomatico}. Recursos para profundizar o tener un roadmap es \href{https://roadmap.sh/data-analyst}{data-analyst}.
+
+
+El proceso de análisis de datos no es un conjunto de tareas aisladas, sino un ciclo iterativo y estructurado que transforma datos crudos en conocimiento accionable y valor estratégico. Lo primero es identificar las variables y patrones contenidos en nuestros datos, si tenemos la información de los datos en una tabla, cada fila sería un patrón y cada columna un variable. 
+
+A continuación, se describen las etapas fundamentales que componen este flujo de trabajo.
+
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    >=Stealth,
+    every node/.style={align=center},
+    pill/.style={
+        rectangle, 
+        rounded corners=10pt, 
+        draw=black, 
+        thick, 
+        minimum width=2cm, 
+        minimum height=0.8cm
+    },
+    block/.style={
+        rectangle, 
+        rounded corners=6pt, 
+        draw=black, 
+        thick, 
+        minimum width=3.8cm, 
+        minimum height=1.5cm,
+        inner sep=6pt
+    },
+    line/.style={draw, thick, ->}
+]
+
+    % --- Nodos Principales ---
+    \node [pill] (datos) {DATOS};
+    
+    \node [block, below=0.6cm of datos] (prepro) {
+        \textbf{Preprocesado:}\\
+        Limpieza\\
+        Normalización\\
+        Outliers\\
+        Datos ausentes\\
+        Ingeniería de\\características
+    };
+    
+    \node [block, below=0.8cm of prepro] (eda) {
+        \textbf{Análisis}\\
+        \textbf{exploratorio}\\
+        \textbf{de datos}
+    };
+    
+    \node [block, below=0.8cm of eda] (modelado) {
+        \textbf{Modelado:}\\
+        Machine/Deep\\
+        Learning
+    };
+    
+    \node [block, below=0.8cm of modelado] (errores) {
+        \textbf{Análisis}\\
+        \textbf{de los}\\
+        \textbf{errores}
+    };
+
+    % --- Nodo de Producción y Etiqueta de Modelo (Izquierda) ---
+    % Colocamos "PUESTA EN PRODUCCIÓN" a la izquierda de EDA
+    \node [pill, left=3cm of eda, minimum width=2.8cm, minimum height=1.2cm] (produccion) {
+        \textbf{PUESTA EN}\\
+        \textbf{PRODUCCIÓN}
+    };
+
+    \node [pill, draw=none,  left=3cm of errores, minimum width=3cm, minimum height=0.5cm] (modelo) {
+        \textbf{MODELO}
+    };
+
+    % Colocamos el texto "MODELO" a la izquierda de errores (alineado con la línea que sube a producción)
+    %\node [font=\sffamily\bfseries, left=2.5cm of errores] (modelo_label) {MODELO};
+
+    % --- Conexiones Directas Descendentes ---
+    \path [line] (datos) -- (prepro);
+    \path [line] (prepro) -- (eda);
+    \path [line] (eda) -- (modelado);
+    \path [line] (modelado) -- (errores);
+
+    % --- Camino hacia la producción (Línea que pasa por MODELO) ---
+    %\path [draw, thick] (errores.west) -- (modelo_label.east);
+    %\path [line] (modelo_label.west) -| (produccion.south);
+
+    % --- Lazos de Retroalimentación (Lado Izquierdo Extremo) ---
+    % Ampliamos el margen a la izquierda (-2.5cm) para rodear limpiamente el bloque de producción
+    \coordinate (backlink) at ($(errores.west) + (-2.5cm, 0)$);
+    
+    %\path [draw, thick] (modelo_label.west) -- (backlink);
+    \path [draw, thick] (backlink) -- ($(prepro.west) + (-2.5cm, 0)$);
+    
+    % Flechas de reentrada a los bloques desde el canal izquierdo
+    \path [line] ($(backlink |- prepro.west)$) -- (prepro.west);
+    \path [line] ($(backlink |- eda.west) + (0, -0.2cm)$) -- ($(eda.west) + (0, -0.2cm)$);
+    \path [line] ($(backlink |- modelado.west) + (0, -0.2cm)$) -- ($(modelado.west) + (0, -0.2cm)$);
+    \path [line] ($(backlink |- errores.west)$) -- (errores.west);
+
+% Sale verticalmente de errores.south, baja 0.5cm y luego dobla hacia modelo.south
+    \path [line,-] (errores.south) -- ++(0,-0.5cm) -| (modelo.south);
+
+    % Sale verticalmente de modelo.north, sube 0.5cm y luego dobla hacia produccion.south
+    \path [line] (modelo.north) -- (produccion.south);
+\end{tikzpicture}
+
+% --- DESCRIPCIÓN DETALLADA ---
+
+\subsection{Datos}
+Conocer nuestros datos es el punto de partida de cualquier problema basado en datos. En este paso clasificamos nuestras variables entre categóricas o continuas por el tratamineto posterior que les vamos a dar.
+
+\subsubsection{Clasificación de Variables en el Análisis de Datos}
+
+En el análisis de datos y modelado estadístico, las variables del conjunto de datos se clasifican según su naturaleza matemática en dos grandes familias: \textbf{cualitativas} y \textbf{cuantitativas}.
+
+\subsubsection{1. Variables Cualitativas o Categóricas}
+Expresan atributos, cualidades o características no numéricas.
+\begin{description}[leftmargin=1.5em, labelindent=0.5em]
+    \item[Nominales:] Categorías que \textbf{no poseen un orden natural o jerárquico}. Solo sirven para etiquetar o clasificar grupos.
+    \begin{itemize}
+        \item \textit{Ejemplos:} Estado de una reserva (\texttt{Confirmada}, \texttt{Cancelada}), Tipo de alojamiento (\texttt{Apartamento}, \texttt{Habitación}), Método de pago.
+    \end{itemize}
+    \item[Ordinales:] Categorías que \textbf{sí poseen un orden o jerarquía interna}, aunque la distancia exacta entre los valores no sea medible.
+    \begin{itemize}
+        \item \textit{Ejemplos:} Nivel de satisfacción (\texttt{Bajo}, \texttt{Medio}, \texttt{Alto}), Nivel educativo, Clasificación de riesgo.
+    \end{itemize}
+\end{description}
+
+\subsubsection{2. Variables Cuantitativas o Numéricas}
+Son aquellas que se expresan mediante valores numéricos y permiten realizar operaciones matemáticas.
+\begin{description}[leftmargin=1.5em, labelindent=0.5em]
+    \item[Discretas:] Surgen del proceso de \textbf{contar}. Toman valores enteros y aislados dentro de un rango; no admiten valores intermedios.
+    \begin{itemize}
+        \item \textit{Ejemplos:} Número de noches de estadía, Cantidad de pasajeros en un vuelo, Total de habitaciones.
+    \end{itemize}
+    \item[Continuas:] Surgen del proceso de \textbf{medir}. Pueden tomar cualquier valor real con decimales dentro de un intervalo continuo.
+    \begin{itemize}
+        \item \textit{Ejemplos:} Precio o tarifa por noche, Tiempo de espera en minutos, Distancia geográfica.
+    \end{itemize}
+\end{description}
+
+\vspace{0.5cm}
+\subsubsection{Mapeo en Dataframes (Resumen Estadístico-Técnico)}
+
+A continuación se presenta el mapeo típico de estos conceptos estadísticos a tipos de datos lógicos utilizados en entornos de desarrollo (como Python o SQL):
+
+\begin{table}[h]
+\centering
+\caption{Clasificación de variables y operaciones principales en la etapa de EDA.}
+\vspace{0.2cm}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Tipo Estadístico} & \textbf{Tipo de Dato (Python/SQL)} & \textbf{Operación Típica en EDA} \\
+\midrule
+\textbf{Nominal}          & \texttt{object}, \texttt{string}, \texttt{category} & Conteo de frecuencias, Moda, Gráficos de barras. \\
+\textbf{Ordinal}          & \texttt{category} (con orden)                       & Medianas, Percentiles, Gráficos ordenados. \\
+\textbf{Discreta}         & \texttt{int}, \texttt{integer}                      & Sumas, Conteos, Histogramas discretos. \\
+\textbf{Continua}         & \texttt{float}, \texttt{decimal}                    & Promedios, Desviación estándar, \textit{Boxplots}. \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection*{Conjuntos de Datos Triviales en el Análisis de Datos}
+
+Un conjunto de datos trivial (\textit{toy dataset}) es una colección de datos de dimensiones reducidas, balanceada y libre de ruido. Se utiliza como estándar de oro en la academia para ilustrar conceptos de clasificación, regresión y agrupación sin la necesidad de invertir tiempo en la fase de preprocesamiento.
+
+\subsubsection{Principales Datasets de Juguete}
+
+\begin{description}[leftmargin=1.5em, labelindent=0.5em]
+    \item[Iris Flower Dataset (Ronald Fisher, 1936):] Es el dataset de clasificación más famoso de la estadística. Contiene 150 instancias de tres especies de flores Iris (Setosa, Versicolor y Virginica).
+    \begin{itemize}
+        \item \textit{Variables:} 4 variables continuas (longitud y ancho del sépalo y pétalo) y 1 variable categórica nominal (especie).
+        \item \textit{Uso común:} Ideal para probar algoritmos de clasificación supervisada y visualizaciones de dispersión en el EDA.
+    \end{itemize}
+
+    \item[Boston Housing Dataset:] Un conjunto de datos clásico para problemas de predicción numérica. Recopila información sobre variables socioeconómicas y geográficas de viviendas en los suburbios de Boston.
+    \begin{itemize}
+        \item \textit{Variables:} 13 variables cuantitativas (tasa de criminalidad, número de habitaciones, accesibilidad a autopistas) y 1 variable continua objetivo (el valor medio de la vivienda).
+        \item \textit{Uso común:} El estándar introductorio para algoritmos de regresión lineal y regularización.
+    \end{itemize}
+
+    \item[Titanic Dataset:] Una lista parcial de los pasajeros del famoso naufragio del RMS Titanic. A diferencia de los anteriores, introduce un nivel muy ligero de preprocesamiento debido a la presencia de pocos datos faltantes.
+    \begin{itemize}
+        \item \textit{Variables:} Mezcla balanceada de variables cuantitativas (edad, tarifa) y cualitativas (género, clase del boleto, puerto de embarque).
+        \item \textit{Uso común:} Clasificación binaria (Sobrevivió / No sobrevivió), ingeniería de características básica y análisis de árboles de decisión.
+    \end{itemize}
+
+    \item[Wine Dataset:] Resultado de un análisis químico de vinos cultivados en la misma región de Italia pero procedentes de tres cultivares diferentes.
+    \begin{itemize}
+        \item \textit{Variables:} 13 variables continuas que miden constituyentes químicos (alcohol, ácido málico, ceniza, magnesio, fenoles).
+        \item \textit{Uso común:} Clasificación multiclase y técnicas de reducción de dimensionalidad como PCA (Análisis de Componentes Principales).
+    \end{itemize}
+\end{description}
+
+\vspace{0.4cm}
+\subsubsection{Resumen Estructural de los Datasets}
+
+La siguiente tabla resume las dimensiones y la tarea analítica principal asociada a cada uno de estos conjuntos de datos estándares en librerías como \texttt{scikit-learn} o \texttt{R}:
+
+\begin{table}[h]
+\centering
+\caption{Dimensiones y tareas analíticas de los \textit{toy datasets} más comunes.}
+\vspace{0.2cm}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccl}
+\toprule
+\textbf{Dataset} & \textbf{Instancias (Filas)} & \textbf{Variables (Columnas)} & \textbf{Tipo de Datos} & \textbf{Tarea Predominante} \\
+\midrule
+Iris             & 150                         & 5                             & Numérico / Categórico   & Clasificación Multiclase \\
+Boston Housing   & 506                         & 14                            & Numérico                & Regresión Numérica \\
+Titanic          & 891                         & 12                            & Mixto                   & Clasificación Binaria \\
+Wine             & 178                         & 14                            & Numérico                & Clasificación / PCA \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+
+
+\subsection{Preprocesamiento y Limpieza (\textit{Data Wrangling})}
+Frecuentemente, los datos crudos presentan inconsistencias, valores nulos, duplicados o formatos erróneos. Esta etapa matemática y algorítmica se encarga de:
+\begin{itemize}
+    \item Imputación o remoción de valores faltantes ($NaN$).
+    \item Normalización y escalado de variables numéricas.
+    \item Codificación de variables categóricas (e.g., \textit{One-Hot Encoding}).
+\end{itemize}
+
+\subsection{3. Análisis Exploratorio de Datos (EDA)}
+El EDA (por sus siglas en inglés, \textit{Exploratory Data Analysis}) busca entender la estructura subyacente de las variables mediante estadística descriptiva. Se analizan medidas de tendencia central, dispersión y matrices de correlación para formular hipótesis iniciales e identificar valores atípicos (\textit{outliers}).
+
+\subsection{4. Modelamiento y Analítica Avanzada}
+En esta etapa se aplican modelos matemáticos, estadísticos o de aprendizaje automático (\textit{Machine Learning}) según la naturaleza del problema:
+\begin{equation}
+    y = f(X) + \epsilon
+\end{equation}
+Donde se busca aproximar la función $f$ para tareas de regresión, clasificación o agrupamiento (\textit{clustering}), validando la robustez del modelo mediante métricas de rendimiento específicas.
+
+\subsection{5. Visualización y Comunicación del Valor}
+La última etapa traduce los resultados técnicos en insights comprensibles para la toma de decisiones. Implica la construcción de gráficos especializados, reportes automatizados o tableros de control (\textit{dashboards}) que cierran la brecha entre la infraestructura de datos y la estrategia operativa.
