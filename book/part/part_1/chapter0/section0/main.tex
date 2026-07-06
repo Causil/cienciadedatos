@@ -1,0 +1,29 @@
+Un pipeline de datos es la combinación de arquitectura, sistemas y procesos 
+que mueven los datos a través de las etapas del ciclo de vida de la ingeniería
+ de datos. Esta definición es deliberadamente fluida para permitir a los 
+ ingenieros de datos integrar cualquier elemento o tecnología que necesiten 
+ para llevar a cabo sus tareas. En la práctica, un pipeline de datos debe ser lo suficientemente flexible para adaptarse a cualquier necesidad que surja a lo largo del ciclo de vida de la ingeniería de datos.
+
+
+Por ejemplo, un pipeline de datos puede variar enormemente en complejidad y forma, abarcando escenarios como:
+\begin{enumerate}
+\item Un sistema ETL tradicional, donde los datos se ingieren desde un sistema transaccional local, pasan por un procesador monolítico y se escriben finalmente en un almacén de datos (data warehouse).
+\item Un pipeline avanzado basado en la nube que extrae datos de 100 fuentes distintas, los combina en 20 tablas amplias, entrena cinco modelos de aprendizaje automático (ML) diferentes, los despliega en producción y monitorea su rendimiento continuo.
+\end{enumerate}
+En resumen, la idea de un pipeline de datos engloba múltiples patrones de movimiento y procesamiento de información (como ETL, ELT, compartición de datos y reverse ETL), enfocándose en utilizar las herramientas adecuadas para lograr el resultado deseado en lugar de limitarse a una filosofía estricta de movimiento de datos.
+
+En la fuente IBM, ver \cite{ibm_data_engineering}, se plantea diez pasos para automatizar los pipelines de datos. 
+
+\begin{enumerate}
+    \item Definir objetivos de datos
+    \item Identificar y describir las fuentes de datos
+    \item Diseñar la arquitectura de los pipelines
+    \item Ingerir y validar datos
+    \item Desarrollar la lógica de transformación
+    \item Almacenar y organizar datos
+    \item Orquestar y programe flujos de trabajo
+    \item Agregar monitoreo y alertas
+    \item Garantizar la escalabilidad y el rendimiento
+    \item Poner en marcha, mantener e iterar
+\end{enumerate}
+si quieres saber más puedes leer \href{https://www.ibm.com/mx-es/think/topics/how-to-automate-data-pipelines-in-10-steps#2102599120}{Pipelines-IBM}

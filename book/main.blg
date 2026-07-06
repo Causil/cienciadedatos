@@ -5,44 +5,51 @@ Reallocating 'name_of_file' (item size: 1) to 6 items.
 The style file: plain.bst
 Reallocating 'name_of_file' (item size: 1) to 19 items.
 Database file #1: referencias/libros.bib
-You've used 1 entry,
+Warning--entry type for "ibm_data_engineering" isn't style-file defined
+--line 45 of file referencias/libros.bib
+You're missing a field name---line 53 of file referencias/libros.bib
+ :   year         = {2026}, 
+ :                          % Año de consulta o actualización aproximada
+I'm skipping whatever remains of this entry
+You've used 2 entries,
             2118 wiz_defined-function locations,
-            504 strings with 4185 characters,
-and the built_in function-call counts, 247 in all, are:
-= -- 23
-> -- 7
+            508 strings with 4234 characters,
+and the built_in function-call counts, 444 in all, are:
+= -- 40
+> -- 14
 < -- 0
-+ -- 3
-- -- 2
-* -- 11
-:= -- 50
-add.period$ -- 4
-call.type$ -- 1
-change.case$ -- 3
++ -- 6
+- -- 4
+* -- 17
+:= -- 82
+add.period$ -- 6
+call.type$ -- 2
+change.case$ -- 7
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 12
-empty$ -- 23
-format.name$ -- 2
-if$ -- 51
+cite$ -- 2
+duplicate$ -- 19
+empty$ -- 45
+format.name$ -- 4
+if$ -- 94
 int.to.chr$ -- 0
-int.to.str$ -- 1
+int.to.str$ -- 2
 missing$ -- 2
-newline$ -- 8
-num.names$ -- 2
-pop$ -- 6
+newline$ -- 12
+num.names$ -- 4
+pop$ -- 15
 preamble$ -- 1
-purify$ -- 3
+purify$ -- 6
 quote$ -- 0
-skip$ -- 6
+skip$ -- 14
 stack$ -- 0
-substring$ -- 5
-swap$ -- 1
+substring$ -- 10
+swap$ -- 2
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 2
+type$ -- 6
 warning$ -- 0
-while$ -- 2
-width$ -- 2
-write$ -- 13
+while$ -- 4
+width$ -- 3
+write$ -- 21
+(There was 1 error message)
