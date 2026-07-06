@@ -1,0 +1,87 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{import}
+\subimport{config/}{package}
+\subimport{config/}{new_commands}
+\subimport{config/}{styles}
+
+% Configuración de la letra capitular (Drop Cap)
+
+\setcounter{DefaultLines}{3}
+\setlength{\DefaultFindent}{2pt}
+
+\begin{document}
+
+% Línea horizontal superior decorativa de las revistas de la época
+\noindent\rule{\textwidth}{0.8pt}
+\vspace{0.5cm}
+
+% --- TÍTULO ---
+\begin{center}
+    {\fontfamily{ptm}\selectfont\huge\bfseries 
+    Aplicación Internacional de un Nuevo Algoritmo 
+    Probabilístico para el Diagnóstico de la Enfermedad 
+    de las Arterias Coronarias
+    }
+    \vspace{0.6cm}
+    
+    % --- AUTORES ---
+    {\fontfamily{ptm}\selectfont\large 
+    Robert Detrano, MD, PhD, Andras Janosi, MD, Walter Steinbrunn, MD, Matthias Pfisterer, MD,
+    Johann-Jakob Schmid, DE, Sarbjit Sandhu, MD, Kern H. Guppy, PhD, Stella Lee, MS,
+    y Victor Froelicher, MD}
+\end{center}
+
+\vspace{0cm}
+
+% --- INICIO DE LAS DOS COLUMNAS ASIMÉTRICAS ---
+\begin{multicols}{2}
+
+% COLUMNA IZQUIERDA: El Abstract/Resumen (En negrita)
+\noindent\textbf{\fontfamily{ptm}\selectfont
+Un nuevo modelo de función discriminante para estimar las probabilidades de 
+enfermedad coronaria angiográfica fue evaluado en cuanto a su confiabilidad y 
+utilidad clínica en 3 grupos de pacientes de prueba. Este modelo, derivado de 
+los resultados de pruebas clínicas y no invasivas de 303 pacientes sometidos a 
+angiografía en la Cleveland Clinic en Cleveland, Ohio, se aplicó a un grupo de 
+425 pacientes sometidos a angiografía en el Instituto Húngaro de Cardiología en 
+Budapest, Hungría (prevalencia de la enfermedad del 75\%); 200 pacientes 
+sometidos a angiografía en el Centro Médico de la Administración de Veteranos en 
+Long Beach, California (prevalencia de la enfermedad del 38\%); y 143 de dichos 
+pacientes de los Hospitales Universitarios de Zúrich y Basilea, Suiza 
+(prevalencia de la enfermedad del 84\%).}
+
+\smallskip
+\noindent\textbf{\fontfamily{ptm}\selectfont
+Las probabilidades resultantes de la aplicación del algoritmo de Cleveland se compararon con aquellas derivadas de la aplicación de un algoritmo bayesiano obtenido de estudios médicos publicados denominado CADENZA en los mismos 3 grupos de pacientes de prueba. Ambos algoritmos sobrepredijeron la probabilidad de enfermedad en los centros húngaro y americano. La sobrepredicción fue más pronunciada con el uso de CADENZA (sobreestimación promedio de 16 frente a 10\% y 11 frente a 5\%, $p < 0.001$). En el grupo suizo, la función discriminante subestimó (por un 7\%) y CADENZA sobreestimó ligeramente (por un 2\%) la probabilidad de la enfermedad.}
+
+\smallskip
+\noindent\textbf{\fontfamily{ptm}\selectfont
+La utilidad clínica, evaluada como el porcentaje de pacientes clasificados correctamente, fue modestamente superior para la nueva función discriminante en comparación con CADENZA en el grupo húngaro y similar en los grupos americano y suizo. Se concluyó que las probabilidades de enfermedad coronaria derivadas de funciones discriminantes son confiables y clínicamente útiles cuando se aplican a pacientes con síndromes de dolor torácico y prevalencia intermedia de la enfermedad.}
+
+\vspace{0.2cm}
+\begin{flushright}
+\textit{\small (Am J Cardiol 1989;64:304--310)}
+\end{flushright}
+
+\columnbreak % Fuerza el paso a la columna derecha para el texto principal
+
+% COLUMNA DERECHA: Introducción con Letra Capitular (Lettrine)
+\lettrine{A}{ pesar} del axioma de Osler de que ``la medicina es una ciencia de incertidumbre y un art de probabilidad'',$^1$ la aplicabilidad del análisis de probabilidad al diagnóstico de enfermedades comunes sigue siendo incierta. Parte de esta incertidumbre se debe a la dificultad para obtener datos clínicos de un número muy grande de pacientes. Tales datos son necesarios para derivar modelos de probabilidad precisos que puedan aplicarse universalmente. Diamond et al.$^2$ fueron los primeros en eludir esta escasez de recolección de datos a gran escala. Al calcular promedios ponderados de sensibilidades y especificidades obtenidos de una revisión de estudios publicados sobre pruebas diagnósticas, y mediante el uso de tablas de probabilidades previas a la prueba también de esos estudios, reunieron el conocimiento obtenido de varios miles de pacientes para definir un algoritmo de probabilidad para el diagnóstico de la enfermedad de las arterias coronarias (EAC).
+
+Debido a que los informes publicados rara vez ofrecen distribuciones completas de variables clínicas y de prueba, los investigadores tuvieron que asumir que estas variables eran independientes entre sí. Esta suposición de independencia creó errores en sus predicciones. Además, las sensibilidades y especificidades informadas se ven afectadas por sesgos y otros problemas metodológicos$^{3-5}$ que en realidad pueden dar lugar a más errores cuando las probabilidades se basan en ellos.
+
+Emprendimos este proyecto para determinar si un algoritmo de probabilidad derivado de las características clínicas y de prueba de un grupo relativamente pequeño de 303 pacientes podría predecir con precisión las probabilidades de EAC en muestras de estudio extraídas de diversas poblaciones étnicas con diferentes características clínicas. Este algoritmo se comparó con el algoritmo de Diamond et al.$^2$
+
+\vspace{0cm}
+\noindent\rule{\linewidth}{0.4pt}
+\vspace{0cm}
+
+% Nota al pie institucional (afiliaciones)
+{\footnotesize\fontfamily{ptm}\selectfont
+De la División de Cardiología, Departamento de Medicina, Centro Médico de la Administración de Veteranos, Long Beach, California; el Instituto Húngaro de Cardiología, Budapest, Hungría; la División de Cardiología, Departamento de Medicina, Hospital Universitario, Zúrich, Suiza; la División de Cardiología, Departamento de Medicina, Hospital Universitario, Basilea, Suiza; el Departamento de Ingeniería, Corporación Studer, Regensdorf, Suiza; y el Departamento de Estadística, Universidad de Stanford, Palo Alto, California. Este trabajo fue financiado en parte por la subvención IDH-SCOR HL-17651 de los Institutos Nacionales de Salud, Bethesda, Maryland, al Centro Médico Cedars-Sinai, División de Cardiología, Los Ángeles, California. El Dr. Janosi es beneficiario de una beca de los Institutos Nacionales de Salud. Manuscrito recibido el 27 de febrero de 1989; manuscrito revisado recibido el 12 de mayo de 1989 y aceptado el 14 de mayo.
+
+Dirección para reimpresiones: Robert Detrano, MD, Cardiología 111-C, Centro Médico de la Administración de Veteranos, 5901 East Seventh Street, Long Beach, California 90822.
+}
+
+\end{multicols}
+\end{document}
